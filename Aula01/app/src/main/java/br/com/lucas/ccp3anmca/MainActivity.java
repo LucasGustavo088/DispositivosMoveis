@@ -1,4 +1,4 @@
-package br.com.lucas.meuprimeiroappccp3anmca;
+package br.com.lucas.ccp3anmca;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void enviarMensagem (View view){
         String mensagem = mensagemEditText.getEditableText().toString();
-        Intent intent = new Intent (this, ExibeMensagemActivity.class);
+        Intent intent = new Intent (this, br.com.lucas.meuprimeiroappccp3anmca.ExibeMensagemActivity.class);
         intent.putExtra(CHAVE_MSG, mensagem);
         startActivity(intent);
     }

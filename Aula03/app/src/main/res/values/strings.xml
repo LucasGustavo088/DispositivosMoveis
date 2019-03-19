@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AppAula3</string>
+    <string name="action_settings">Settings</string>
+    <string name="dica_nome_fila">Digite o nome da fila ;D</string>
+</resources>
