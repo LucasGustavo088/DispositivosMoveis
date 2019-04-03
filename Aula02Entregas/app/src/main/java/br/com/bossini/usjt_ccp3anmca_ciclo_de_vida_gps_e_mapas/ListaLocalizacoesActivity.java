@@ -125,21 +125,29 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
 
     public void atualizarLocalizacoes(){
 
-        /*double lat = localizacaoAtual.getLatitude();
-        double lon = localizacaoAtual.getLongitude();*/
-
-
-
         if(lista.isEmpty()) {
             for(int i = 0; i < 50; i++) {
-                double lat = this.obterLatitudeLongitude().latitude;
-                double lon = this.obterLatitudeLongitude().longitude;
+                //double lat = this.obterLatitudeLongitude().latitude;
+                //double lon = this.obterLatitudeLongitude().longitude;
+                double lat = 0.00;
+                double lon = 0.00;
+                if(localizacaoAtual != null) {
+                    lat = localizacaoAtual.getLatitude();
+                    lon = localizacaoAtual.getLongitude();
+                }
 
                 lista.add(String.format("Lat: %f, Long: %f", lat, lon));
             }
         } else {
-            double lat = this.obterLatitudeLongitude().latitude;
-            double lon = this.obterLatitudeLongitude().longitude;
+            //double lat = this.obterLatitudeLongitude().latitude;
+            //double lon = this.obterLatitudeLongitude().longitude;
+            double lat = 0.00;
+            double lon = 0.00;
+            if(localizacaoAtual != null) {
+                lat = localizacaoAtual.getLatitude();
+                lon = localizacaoAtual.getLongitude();
+            }
+
             lista.remove(lista.size() - 1);
             lista.add(String.format("Lat: %f, Long: %f", lat, lon));
         }
