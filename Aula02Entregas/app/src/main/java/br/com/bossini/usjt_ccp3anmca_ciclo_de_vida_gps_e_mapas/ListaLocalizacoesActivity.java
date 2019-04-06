@@ -43,10 +43,10 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
 
     public void atualizarView() {
         atualizarLocalizacoes();
-        final List <String> chamados = lista;
+        List <String> chamados = lista;
         chamadosListView = findViewById(R.id.chamadosListView);
         chamadosListView.setAdapter(null);
-        Collections.reverse(chamados);
+//        Collections.reverse(chamados);
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, chamados);
         chamadosListView.setAdapter(adapter);
@@ -94,6 +94,7 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
                 localizacaoTextView.setText(
                         String.format("Lat: %f, Long: %f", lat, lon)
                 );*/
+                atualizarView();
             }
 
             @Override
@@ -112,23 +113,24 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
             }
         };
 
-        final Handler handler = new Handler();
-        handler.post(new Runnable(){
-            @Override
-            public void run() {
-                Log.d("atualizado", "atualizado");
-                atualizarView();
-                handler.postDelayed(this,2000); // set time here to refresh textView
-            }
-        });
+//        final Handler handler = new Handler();
+//        handler.post(new Runnable(){
+//            @Override
+//            public void run() {
+//                Log.d("atualizado", "atualizado");
+//                atualizarView();
+//                handler.postDelayed(this,3000); // set time here to refresh textView
+//            }
+//        });
     }
 
     public void atualizarLocalizacoes(){
 
+
+
         if(lista.isEmpty()) {
             for(int i = 0; i < 50; i++) {
-                //double lat = this.obterLatitudeLongitude().latitude;
-                //double lon = this.obterLatitudeLongitude().longitude;
+
                 double lat = 0.00;
                 double lon = 0.00;
                 if(localizacaoAtual != null) {
@@ -136,11 +138,14 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
                     lon = localizacaoAtual.getLongitude();
                 }
 
+//                lat = this.obterLatitudeLongitude().latitude;
+//                lon = this.obterLatitudeLongitude().longitude;
+
+//                Log.d("populando", "teste");
                 lista.add(String.format("Lat: %f, Long: %f", lat, lon));
             }
         } else {
-            //double lat = this.obterLatitudeLongitude().latitude;
-            //double lon = this.obterLatitudeLongitude().longitude;
+
             double lat = 0.00;
             double lon = 0.00;
             if(localizacaoAtual != null) {
@@ -148,10 +153,17 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
                 lon = localizacaoAtual.getLongitude();
             }
 
+//            lat = this.obterLatitudeLongitude().latitude;
+//            lon = this.obterLatitudeLongitude().longitude;
+
+            lista.add(0, String.format("Lat: %f, Long: %f", lat, lon));
             lista.remove(lista.size() - 1);
-            lista.add(String.format("Lat: %f, Long: %f", lat, lon));
         }
 
+//        int listaid = 0;
+//        for(String list : lista) {
+//            Log.d("Lista: " + listaid++, list);
+//        }
 
     }
 
@@ -182,7 +194,7 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
                         PackageManager.PERMISSION_GRANTED){
                     locationManager.requestLocationUpdates(
                             LocationManager.GPS_PROVIDER,
-                            0,
+                            2000,
                             0,
                             locationListener);
                 }
@@ -205,7 +217,7 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
                 checkSelfPermission(this,
                         Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED){
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
         }
         else{
             ActivityCompat.requestPermissions(this,
