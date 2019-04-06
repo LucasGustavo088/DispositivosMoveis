@@ -19,9 +19,14 @@ public class LocalizacaoArrayAdapter extends ArrayAdapter<Localizacao> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         Localizacao localizacaoDaVez = getItem(position);
         Fila filaDaVez = localizacaoDaVez.getFila();
         LayoutInflater inflater = LayoutInflater.from(getContext());
+        if(convertView == null) {
+            convertView = inflater.inflate(R.layout.list_item, parent, false);
+        }
+
         View view = inflater.inflate(R.layout.list_item, parent, false);
         TextView latitudeLocalizacaoTextView = view.findViewById(R.id.latitudeLocalizacaoTextView);
         TextView longitudeLocalizacaoTextView = view.findViewById(R.id.longitudeLocalizacaoTextView);
