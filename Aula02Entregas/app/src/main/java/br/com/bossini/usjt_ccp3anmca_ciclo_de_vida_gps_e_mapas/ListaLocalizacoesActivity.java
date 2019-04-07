@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,6 +34,7 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
     private LocationListener locationListener;
     private static final int REQUEST_CODE_GPS = 1001;
     List <Localizacao> lista = new ArrayList<>();
+    private RecyclerView localizacoesRecyclerView;
 
     public class LatLong {
         public double latitude;
@@ -40,25 +43,33 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
 
     public void atualizarView() {
         gerarLocalizacoes();
-        localizacoesListView = findViewById(R.id.chamadosListView);
-        localizacoesListView.setAdapter(null);
 
-        ArrayAdapter<Localizacao> adapter = new LocalizacaoArrayAdapter(this, lista);
-        localizacoesListView.setAdapter(adapter);
 
-        localizacoesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView textView = view.findViewById(R.id.chamadosListView);
-                Localizacao selectedFromList = lista.get(position);
 
-                Uri uri = Uri.parse(
-                        String.format("geo:%f,%f", selectedFromList.getLatitude(), selectedFromList.getLongitude()));
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.setPackage("com.google.android.apps.maps");
-                startActivity(intent);
-            }
-        });
+//        localizacoesListView = findViewById(R.id.chamadosListView);
+//        localizacoesListView.setAdapter(null);
+
+//        ArrayAdapter<Localizacao> adapter = new LocalizacaoArrayAdapter(this, lista);
+        //localizacoesListView.setAdapter(adapter);
+
+        localizacoesRecyclerView = findViewById(R.id.localizacoesRecyclerView);
+        localizacoesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LocalizacaoRecyclerViewAdapter adapter = new LocalizacaoRecyclerViewAdapter (lista);
+        localizacoesRecyclerView.setAdapter(adapter);
+
+//        localizacoesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                TextView textView = view.findViewById(R.id.localizacoesListView);
+//                Localizacao selectedFromList = lista.get(position);
+//
+//                Uri uri = Uri.parse(
+//                        String.format("geo:%f,%f", selectedFromList.getLatitude(), selectedFromList.getLongitude()));
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                intent.setPackage("com.google.android.apps.maps");
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override

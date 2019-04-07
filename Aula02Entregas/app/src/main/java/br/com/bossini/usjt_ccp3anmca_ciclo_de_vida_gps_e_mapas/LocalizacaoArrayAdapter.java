@@ -19,23 +19,25 @@ public class LocalizacaoArrayAdapter extends ArrayAdapter<Localizacao> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         Localizacao localizacaoDaVez = getItem(position);
         Fila filaDaVez = localizacaoDaVez.getFila();
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        if(convertView == null) {
+        ViewHolder vh = null;
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item, parent, false);
+            vh = new ViewHolder();
+            vh.latitudeLocalizacaoTextView = convertView.findViewById(R.id.latitudeLocalizacaoTextView);
+            vh.latitudeLocalizacaoTextView = convertView.findViewById(R.id.latitudeLocalizacaoTextView);
+            vh.dataAberturaLocalizacaoTextView = convertView.findViewById(R.id.dataAberturaTextView);
+            convertView.setTag(vh);
         }
 
-        View view = inflater.inflate(R.layout.list_item, parent, false);
-        TextView latitudeLocalizacaoTextView = view.findViewById(R.id.latitudeLocalizacaoTextView);
-        TextView longitudeLocalizacaoTextView = view.findViewById(R.id.longitudeLocalizacaoTextView);
-        TextView dataAberturaTextView = view.findViewById(R.id.dataAberturaTextView);
+        vh = (ViewHolder) convertView.getTag();
 
-        latitudeLocalizacaoTextView.setText(String.valueOf(localizacaoDaVez.getLatitude()));
-        longitudeLocalizacaoTextView.setText(String.valueOf(localizacaoDaVez.getLongitude()));
-        dataAberturaTextView.setText(DateHelper.format(localizacaoDaVez.getDataAbertura()));
+        vh.latitudeLocalizacaoTextView.setText(String.valueOf(localizacaoDaVez.getLatitude()));
+        vh.latitudeLocalizacaoTextView.setText(String.valueOf(localizacaoDaVez.getLongitude()));
+        vh.dataAberturaLocalizacaoTextView.setText(DateHelper.format(localizacaoDaVez.getDataAbertura()));
 
-        return view;
+        return convertView;
     }
 }
