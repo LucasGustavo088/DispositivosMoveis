@@ -70,6 +70,7 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+        
     }
 
     @Override
