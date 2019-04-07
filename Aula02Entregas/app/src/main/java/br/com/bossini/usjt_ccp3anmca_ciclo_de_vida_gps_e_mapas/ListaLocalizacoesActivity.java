@@ -44,17 +44,14 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
     public void atualizarView() {
         gerarLocalizacoes();
 
-
-
-//        localizacoesListView = findViewById(R.id.chamadosListView);
-//        localizacoesListView.setAdapter(null);
-
-//        ArrayAdapter<Localizacao> adapter = new LocalizacaoArrayAdapter(this, lista);
-        //localizacoesListView.setAdapter(adapter);
-
+        setContentView(R.layout.activity_lista_localizacoes);
         localizacoesRecyclerView = findViewById(R.id.localizacoesRecyclerView);
         localizacoesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        LocalizacaoRecyclerViewAdapter adapter = new LocalizacaoRecyclerViewAdapter (lista);
+
+        /*ChamadoArrayAdapter adapter =
+                new ChamadoArrayAdapter(this, chamados);*/
+        LocalizacaoRecyclerViewAdapter adapter =
+                new LocalizacaoRecyclerViewAdapter (lista);
         localizacoesRecyclerView.setAdapter(adapter);
 
 //        localizacoesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
