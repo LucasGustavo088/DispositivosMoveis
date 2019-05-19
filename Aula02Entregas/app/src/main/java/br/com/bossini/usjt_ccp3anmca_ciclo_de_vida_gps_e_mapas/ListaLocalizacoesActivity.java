@@ -135,13 +135,18 @@ public class ListaLocalizacoesActivity extends AppCompatActivity {
                 lon = localizacaoAtual.getLongitude();
             }
 
-            lista.add(
-                    new Localizacao (
-                            new Fila ("Nome da fila"),
-                            lat,
-                            lon,
-                            new Date()
-                    ));
+            Localizacao novaLocalizacao = new Localizacao (
+                    new Fila ("Nome da fila"),
+                    lat,
+                    lon,
+                    new Date()
+            );
+
+            Context context = null;
+            LocalizacaoDAO dao = new LocalizacaoDAO(context);
+            dao.insertLocalizacao(novaLocalizacao);
+
+            lista.add(novaLocalizacao);
 
             //lista.add(0, String.format("Lat: %f, Long: %f", lat, lon));
             lista.remove(lista.size() - 1);
