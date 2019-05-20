@@ -3,7 +3,7 @@
     package="br.com.bossini.usjt_ccp3anmca_ciclo_de_vida_gps_e_mapas">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -11,8 +11,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaLocalizacoesActivity"></activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
