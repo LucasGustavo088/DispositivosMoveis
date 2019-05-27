@@ -27,6 +27,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +42,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -149,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
     public void obtemPrevisoesV5 (){
         String endereco = obtemEnderecoAPI();
 
-        Log.d("endereco", endereco);
-
         JsonObjectRequest req = new JsonObjectRequest(
                 Request.Method.GET,
                 endereco,
@@ -233,14 +234,31 @@ public class MainActivity extends AppCompatActivity {
     public void lidaComJSON (JSONObject resultado){
         try {
             previsoes.clear();
+            Gson gson = new GsonBuilder().create();
             JSONArray list = resultado.getJSONArray("list");
+
+            if (list.length() > 0) {
+                ItemWeatherJson[] weathers = gson.fromJson(list.toString(), ItemWeatherJson[].class);
+
+                for(ItemWeatherJson itemWeather: weathers){
+                    itemWeather.getDt();
+                }
+            }
+
             for (int i = 0; i < list.length(); i++){
+
                 JSONObject caraDaVez = list.getJSONObject(i);
-                long dt = caraDaVez.getLong("dt");
+                String caraDaVezJsonString = caraDaVez.toString();
+                ItemWeatherJson itemWeatherJson = gson.fromJson(caraDaVezJsonString, ItemWeatherJson.class);
+
+                long dt = itemWeatherJson.getDt();
                 JSONObject main = caraDaVez.getJSONObject("main");
-                double temp_min = main.getDouble("temp_min");
-                double temp_max = main.getDouble("temp_max");
-                double humidity = main.getDouble("humidity");
+                MainJson mainJson = gson.fromJson(main.toString(), MainJson.class);
+
+                double temp_min = mainJson.getTemp_min();
+                double temp_max = mainJson.getTemp_max();
+                double humidity = mainJson.getHumidity();
+
                 String description =
                         caraDaVez.
                                 getJSONArray("weather").
