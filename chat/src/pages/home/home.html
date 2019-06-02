@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Chat
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>Selecione a sala</ion-list-header>
+    <ion-item>
+      <ion-label floating>Nome</ion-label>
+      <ion-input type=text [(ngModel)]="dados.nomeUsuario"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Sala</ion-label>
+      <ion-select [(ngModel)]="dados.nomeSala">
+        <ion-option value="cinema">Cinema</ion-option>
+        <ion-option value="curiosidades">Curiosidades</ion-option>
+        <ion-option value="esportes">Esportes</ion-option>
+      </ion-select>
+    </ion-item>
+    <p>
+      <button class="botao-full" ion-button full (click)="entrarSala()">Entrar</button>
+    </p>
+  </ion-list>
+</ion-content>
