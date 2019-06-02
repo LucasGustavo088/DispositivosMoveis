@@ -1,15 +1,32 @@
-<!--
-  Generated template for the SalaPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
-    <ion-title>sala</ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-
-</ion-content>
+    <ion-navbar>
+      <ion-title>
+        {{dados.nomeSala}}
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let mensagem of mensagens">
+          <div class="chat-message" text-left>
+            <div class="left-bubble">
+              <span class="msg-name">{{mensagem.nomeUsuario}}</span>
+              <p text-wrap>{{mensagem.mensagem}}</p>
+            </div>
+          </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+  <ion-footer>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-10>
+          <ion-input [(ngModel)]="mensagem" type="text" placeholder="Digite a mensagem"></ion-input>
+        </ion-col>
+        <ion-col col-2 (click)="enviarMensagem()">
+          <ion-icon name="paper-plane"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {MensagemService} from '../../app/mensagem.service';
 
 /**
  * Generated class for the SalaPage page.
@@ -16,8 +17,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class SalaPage {
 
   dados;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  mensagens = [];
+  mensagem;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public mensagemService : MensagemService) {
     this.dados = this.navParams.get("dadosHome");
+    console.log(this.dados);
+    this.mensagens = this.mensagemService.getMensagens(this.dados.nomeSala);
+  }
+
+  enviarMensagem() {
+    let novaMensagem = {
+      nomeUsuario: this.dados.nomeUsuario,
+      mensagem: this.mensagem 
+    };
+
+    this.mensagemService.addMensagem(novaMensagem, this.dados.nomeSala);
   }
 
   ionViewDidLoad() {
