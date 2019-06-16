@@ -1,20 +1,39 @@
 <ion-header>
     <ion-navbar>
       <ion-title>
-        {{dados.nomeSala}}
+        {{sala.nomeSala}}
       </ion-title>
     </ion-navbar>
   </ion-header>
   <ion-content>
+      <ion-list no-lines>
+          <ion-item *ngFor="let mensagem of mensagens; let i=index" text-wrap>
+              <ion-avatar item-left>
+                <img src ="{{mensagem.UsuarioCadastro.IconeCadastro.destino}}">
+              </ion-avatar>
+              <h2>{{mensagem.UsuarioCadastro.nomeUsuario}}</h2>
+              <div class="bubble me" ><h3>{{mensagem.mensagem}}</h3>
+              </div>
+              <!-- <ion-avatar item-right *ngIf="item.sentby != buddy.uid">
+                <img src ="{{photoURL}}">
+              </ion-avatar>
+              <div class="bubble you"  *ngIf="item.sentby != buddy.uid"><h3>{{item.message}}</h3>
+              </div> -->
+          </ion-item>
+        </ion-list>
     <ion-list>
-      <ion-item *ngFor="let mensagem of mensagens">
+      
+      <!-- <ion-item *ngFor="let mensagem of mensagens">
           <div class="chat-message" text-left>
             <div class="left-bubble">
-              <span class="msg-name">{{mensagem.nomeUsuario}}</span>
+              <ion-avatar item-left>
+                  <img src ="">
+              </ion-avatar>
+              <span class="msg-name">{{mensagem.UsuarioCadastro.nomeUsuario}}</span>
               <p text-wrap>{{mensagem.mensagem}}</p>
             </div>
           </div>
-      </ion-item>
+      </ion-item> -->
     </ion-list>
   </ion-content>
   

@@ -1,3 +1,4 @@
+import { UsuarioService } from './../../app/usuario.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {MensagemService} from '../../app/mensagem.service';
@@ -17,23 +18,26 @@ import {MensagemService} from '../../app/mensagem.service';
 export class SalaPage {
 
   dados;
-
+  sala = {};
   mensagens = [];
   mensagem;
+  idSala = -1;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public mensagemService : MensagemService) {
-    this.dados = this.navParams.get("dadosHome");
-    console.log(this.dados);
-    this.mensagens = this.mensagemService.getMensagens(this.dados.nomeSala);
+  constructor(public navCtrl: NavController, public navParams: NavParams, public mensagemService : MensagemService, public usuarioService: UsuarioService) {
+    this.idSala = this.navParams.get("id_sala");
+    this.sala = this.mensagemService.carregarDadosSala(this.idSala);
+    this.mensagens = this.mensagemService.getMensagens(this.idSala);
   }
 
   enviarMensagem() {
+    let usuarioLogado = this.usuarioService.carregarUsuarioSessao();
+    usuarioLogado.IconeCadastro = this.usuarioService.carregarIcone(usuarioLogado.icone);
     let novaMensagem = {
-      nomeUsuario: this.dados.nomeUsuario,
-      mensagem: this.mensagem 
+      mensagem: this.mensagem,
+      UsuarioCadastro: usuarioLogado
     };
 
-    this.mensagemService.addMensagem(novaMensagem, this.dados.nomeSala);
+    this.mensagemService.addMensagem(novaMensagem, this.idSala);
   }
 
   ionViewDidLoad() {

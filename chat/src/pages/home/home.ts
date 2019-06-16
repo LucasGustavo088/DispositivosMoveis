@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {UsuarioService} from '../../app/usuario.service';
 // import { Storage } from "@ionic/storage";
 
 @Component({
@@ -13,8 +14,8 @@ export class HomePage {
     nomeSala: ''
   }
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController, public usuarioService: UsuarioService) {
+    
   }
 
   entrarSala() {

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Chat
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>Faça seu login</ion-list-header>
+    <ion-item>
+      <ion-label floating>login</ion-label>
+      <ion-input type=text [(ngModel)]="usuario.nomeUsuario"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Icone</ion-label>
+      <ion-select [(ngModel)]="usuario.icone">
+          <ion-option *ngFor="let avatar of icones" value="{{avatar.id}}">{{avatar.nome}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <p>
+      <button class="botao-full" ion-button full (click)="logar()">Entrar</button>
+    </p>
+  </ion-list>
+</ion-content>
