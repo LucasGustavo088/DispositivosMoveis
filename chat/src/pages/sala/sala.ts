@@ -2,6 +2,7 @@ import { UsuarioService } from './../../app/usuario.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {MensagemService} from '../../app/mensagem.service';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the SalaPage page.
@@ -23,7 +24,7 @@ export class SalaPage {
   mensagem;
   idSala = -1;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public mensagemService : MensagemService, public usuarioService: UsuarioService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public mensagemService : MensagemService, public usuarioService: UsuarioService, private db: AngularFireDatabase) {
     this.idSala = this.navParams.get("id_sala");
     this.sala = this.mensagemService.carregarDadosSala(this.idSala);
     this.mensagens = this.mensagemService.getMensagens(this.idSala);

@@ -1,7 +1,11 @@
 import { Injectable } from "@angular/core";
+import {AngularFireDatabase} from 'angularfire2/database';
 
 @Injectable()
 export class UsuarioService{
+    constructor (private db: AngularFireDatabase){
+    }
+
     usuario_logado = {
         id: -1,
         usuarioLogado: false,
@@ -30,33 +34,36 @@ export class UsuarioService{
         return this.icones;
     }
 
-    verificarLoginJaExiste(usuarioCadastro) {
-        let retorno = false;
-        this.usuario_cadastro.forEach(function(usuarioNaBase) {
-            if(usuarioNaBase.nomeUsuario == usuarioCadastro.nomeUsuario) {
-                retorno = true;
-            }
-        });
+    fetchUsuarios() {
+        let usuarios = this.db.list("/usuario_cadastro");
+        return usuarios;
+    }
 
-        return retorno;
+    verificarLoginJaExiste(usuarioCadastro) {
+        return false;
     }
 
     cadastrarELogar(usuarioCadastro) {
-        this.usuario_logado.id = Math.floor(Math.random() * 1000) + 1;
-        this.usuario_logado.usuarioLogado = true;
-
-        usuarioCadastro.id = this.usuario_logado.id;
-        this.usuario_cadastro.push(usuarioCadastro);
+        usuarioCadastro.IconeCadastro = this.carregarIcone(usuarioCadastro.icone);
+        this.db.list("/usuario_cadastro/").push({            
+            usuarioCadastro   
+        }); 
     }
 
     carregarUsuarioSessao() {
         let usuarioLogado = this.usuario_logado;
-        let retorno = {id: -1, icone: -1, IconeCadastro: {}};
-        this.usuario_cadastro.forEach(function(usuario_cadastrado) {
-            if(usuario_cadastrado.id == usuarioLogado.id) {
-                retorno = usuario_cadastrado;
-            }
+        let retorno: any;
+
+        this.db.list('/usuario_cadastro').valueChanges().subscribe(usuarios => {
+            usuarios.forEach(function(usuario_cadastrado: any) {
+                if(usuario_cadastrado.id == usuarioLogado.id) {
+                    retorno = usuario_cadastrado;
+                }
+            });
         });
+
+        
+        
         return retorno;
     }
 

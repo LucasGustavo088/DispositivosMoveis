@@ -2,7 +2,7 @@ import { UsuarioService } from './../../app/usuario.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { enterView } from '@angular/core/src/render3/instructions';
-
+import {AngularFireDatabase} from 'angularfire2/database';
 /**
  * Generated class for the LoginPage page.
  *
@@ -24,13 +24,27 @@ export class LoginPage {
 
   icones = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioService: UsuarioService, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public usuarioService: UsuarioService, 
+    private alertCtrl: AlertController,
+    private db: AngularFireDatabase) {
     this.icones = usuarioService.carregarIcones();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
+
+  adicionarUsuario (note){        
+    //this.notes.push(note);        
+    this.db.list("/usuario_cadastro/").push({            
+      title: note.title,            
+      content: note.content,            
+      date: note.date        
+    });    
+  }
+
 
   logar() {
     if(this.usuarioService.verificarLoginJaExiste(this.usuario)) {

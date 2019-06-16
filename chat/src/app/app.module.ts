@@ -7,8 +7,21 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCQPpNc7xUmf8m2aUgROSaiuDNCYEU4MRk",
+  authDomain: "chat-3e279.firebaseapp.com",
+  databaseURL: "https://chat-3e279.firebaseio.com",
+  projectId: "chat-3e279",
+  storageBucket: "chat-3e279.appspot.com",
+  messagingSenderId: "1045267378067",
+  appId: "1:1045267378067:web:a43a02539820a0ce"
+};
 
 @NgModule({
   declarations: [
@@ -18,7 +31,9 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -31,7 +46,7 @@ import { HomePage } from '../pages/home/home';
     SplashScreen,
     MensagemService,
     UsuarioService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

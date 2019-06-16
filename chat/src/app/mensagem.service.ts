@@ -1,9 +1,13 @@
 import { UsuarioService } from './usuario.service';
 import { Injectable } from "@angular/core";
 import { ThrowStmt } from "@angular/compiler";
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class MensagemService{
+    constructor (private db: AngularFireDatabase){
+    }
+    
     salas = [
         {id: 1, nomeSala: 'Cinema', mensagens: []},
         {id: 2, nomeSala: 'Curiosidades', mensagens: []},
@@ -11,21 +15,14 @@ export class MensagemService{
     ];
 
     addMensagem (mensagem, idSala){
-        console.log(mensagem); console.log(idSala);
-        this.salas.forEach(function(salaAtual, index) {
-            if(salaAtual.id == idSala) {
-                salaAtual.mensagens.push(mensagem);
-            }
-        });
+        this.db.list("/sala_cadastro/" + idSala).push({            
+            mensagem   
+        }); 
     }
 
     getMensagens(idSala) {
-        let mensagensDaSala = [];
-        this.salas.forEach(function(salaAtual, index) {
-            if(salaAtual.id == idSala) {
-                mensagensDaSala = salaAtual.mensagens;
-            }
-        });
+        let mensagensDaSala: any;
+        mensagensDaSala = this.db.list("/sala_cadastro/" + idSala);
 
         return mensagensDaSala;
     }
