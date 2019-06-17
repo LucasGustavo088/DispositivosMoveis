@@ -36,13 +36,9 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  adicionarUsuario (note){        
+  adicionarUsuario (usuario){        
     //this.notes.push(note);        
-    this.db.list("/usuario_cadastro/").push({            
-      title: note.title,            
-      content: note.content,            
-      date: note.date        
-    });    
+    this.db.list("/usuario_cadastro/").push(usuario);    
   }
 
 
